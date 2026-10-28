@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Компьютерийн хардвэр – бүрэн гарын авлага</title>
+<meta name="description" content="Компьютерийн хардвэр гэж юу вэ? Процессор, санах ой, дэлгэцний карт, хадгалах төхөөрөмж, эх хавтан, цахилгаан тэжээл болон бусад эд ангийн тайлбар, сонгох заавар.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f4;--card:#fff;--ink:#14202b;--mute:#566675;--line:#d3dae1;--pcb:#0f5c4d;--pcb2:#0b4338;--gold:#c9a227;--soft:#e3efeb}
+@media (prefers-color-scheme:dark){:root{--bg:#0e161c;--card:#16212a;--ink:#e6edf2;--mute:#98a8b6;--line:#27363f;--pcb:#2fa98f;--soft:#14302b}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{font-family:Manrope,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+h1,h2,h3{font-family:Unbounded,"Segoe UI",Arial,sans-serif;line-height:1.25}
+a{color:var(--pcb)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.hero{background:var(--pcb2);color:#fff;padding:64px 20px 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+linear-gradient(90deg,transparent 0 80%,rgba(255,255,255,.12) 80% 80.3%,transparent 80.3%),
+linear-gradient(0deg,transparent 0 35%,rgba(255,255,255,.12) 35% 35.4%,transparent 35.4%),
+radial-gradient(circle at 80% 65%,var(--gold) 0 5px,transparent 6px),
+radial-gradient(circle at 93% 30%,var(--gold) 0 4px,transparent 5px)}
+.hero div{max-width:1100px;margin:0 auto;position:relative}
+.hero h1{font-size:clamp(1.7rem,4.5vw,3rem);margin-bottom:14px;max-width:14em}
+.hero p{max-width:40em;opacity:.93}
+.layout{max-width:1100px;margin:0 auto;padding:28px 20px 60px;display:grid;grid-template-columns:230px 1fr;gap:36px}
+.toc{position:sticky;top:20px;align-self:start;font-size:.92rem}
+.toc b{display:block;margin-bottom:8px;font-family:Unbounded,sans-serif;font-size:.9rem}
+.toc a{display:block;padding:5px 10px;border-left:3px solid var(--line);color:var(--ink);text-decoration:none}
+.toc a:hover{border-left-color:var(--gold);background:var(--soft)}
+article section{margin-bottom:54px}
+article h2{font-size:clamp(1.25rem,2.6vw,1.65rem);margin-bottom:12px}
+article h3{font-size:1rem;margin:20px 0 6px}
+article p{margin-bottom:12px;max-width:44em}
+ul.l{padding-left:20px;margin-bottom:12px}ul.l li{margin-bottom:4px}
+.box{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--pcb);border-radius:10px;padding:16px 18px;margin:16px 0}
+.box.tip{border-left-color:var(--gold)}
+.box b{display:block;margin-bottom:4px}
+.cmp{width:100%;border-collapse:collapse;background:var(--card);font-size:.92rem}
+.cmp th,.cmp td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.cmp th{background:var(--soft)}
+.scroll{overflow-x:auto;margin:14px 0}
+.parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0}
+.part{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.part b{display:block;color:var(--pcb)}
+.part span{font-size:.88rem;color:var(--mute)}
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.pick button{padding:9px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:30px;cursor:pointer;font:700 .9rem Manrope,sans-serif}
+.pick button[aria-pressed=true]{background:var(--pcb);color:#fff;border-color:var(--pcb)}
+#spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 18px}
+#spec div{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+#spec div:last-child{border:0}
+#spec b{min-width:140px}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700}
+details p{margin:8px 0 0;color:var(--mute)}
+#gq{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit;margin-bottom:12px}
+.g{padding:10px 0;border-bottom:1px solid var(--line)}
+.g b{color:var(--pcb)}
+footer{background:var(--pcb2);color:#d9e6e2;padding:24px 20px;text-align:center;font-size:.9rem}
+@media (max-width:860px){.layout{grid-template-columns:1fr}.toc{position:static;display:flex;flex-wrap:wrap;gap:6px}.toc b{width:100%}.toc a{border:1px solid var(--line);border-radius:20px}#spec div{flex-direction:column;gap:2px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="hero"><div>
+ <h1>Компьютерийн хардвэр гэж юу вэ?</h1>
+ <p>Компьютерийн биет эд ангиудын үүрэг, ажиллах зарчим, үзүүлэлтүүдийг ойлгомжтойгоор тайлбарласан гарын авлага. Шинээр компьютер сонгох, шинэчлэх, эвдрэлийг ойлгоход тань тус болно.</p>
+</div></header>
+
+<div class="layout">
+<nav class="toc" aria-label="Агуулга">
+ <b>Агуулга</b>
+ <a href="#undes">Үндсэн ойлголт</a>
+ <a href="#cpu">Процессор (CPU)</a>
+ <a href="#ram">Санах ой (RAM)</a>
+ <a href="#storage">Хадгалах төхөөрөмж</a>
+ <a href="#gpu">Дэлгэцний карт (GPU)</a>
+ <a href="#mb">Эх хавтан</a>
+ <a href="#psu">Цахилгаан тэжээл</a>
+ <a href="#cool">Хөргөлт, кейс</a>
+ <a href="#io">Оролт, гаралт</a>
+ <a href="#choose">Хэрхэн сонгох вэ</a>
+ <a href="#faq">Түгээмэл асуулт</a>
+ <a href="#gloss">Нэр томьёоны толь</a>
+</nav>
+
+<article>
+<section id="undes">
+ <h2>Үндсэн ойлголт</h2>
+ <p><b>Хардвэр (hardware)</b> гэдэг нь компьютерийн гараар барьж, нүдээр харж болох биет хэсгүүд юм. Харин хардвэрийг ажиллуулдаг программ, үйлдлийн систем зэргийг <b>софтвэр (software)</b> гэнэ.</p>
+ <p>Компьютер дөрвөн үндсэн үүрэгтэй: өгөгдөл <b>оруулах</b>, <b>боловсруулах</b>, <b>хадгалах</b>, үр дүнг <b>гаргах</b>. Эд анги бүр эдгээрийн аль нэгийг хариуцна.</p>
+ <div class="parts">
+  <div class="part"><b>Боловсруулах</b><span>Процессор, дэлгэцний карт</span></div>
+  <div class="part"><b>Түр санах</b><span>Санах ой (RAM)</span></div>
+  <div class="part"><b>Хадгалах</b><span>SSD, HDD</span></div>
+  <div class="part"><b>Холбох</b><span>Эх хавтан</span></div>
+  <div class="part"><b>Тэжээх</b><span>Цахилгаан тэжээл</span></div>
+  <div class="part"><b>Оролт / гаралт</b><span>Гар, хулгана, монитор</span></div>
+ </div>
+ <div class="box"><b>Жишээ</b>Та тоглоом эхлүүлэхэд файлууд SSD-ээс санах ой руу ачаалагдана, процессор тооцоолол хийж, дэлгэцний карт зургийг зурж, монитор дээр харуулна.</div>
+</section>
+
+<section id="cpu">
+ <h2>Процессор (CPU)</h2>
+ <p>Процессор нь компьютерийн «тархи». Программын зааврыг гүйцэтгэж, тооцоолол хийдэг. Үйлдвэрлэгчид нь голдуу <b>Intel</b>, <b>AMD</b> юм.</p>
+ <h3>Гол үзүүлэлтүүд</h3>
+ <ul class="l">
+  <li><b>Цөм (core):</b> тусдаа тооцоолол хийх нэгж. Цөм их байх тусам олон ажлыг зэрэг гүйцэтгэнэ.</li>
+  <li><b>Урсгал (thread):</b> нэг цөмөөр хэд хэдэн дараалал зэрэг гүйцэтгэх чадвар.</li>
+  <li><b>Давтамж (GHz):</b> секундэд хийх мөчлөгийн тоо. Өндөр байх нь нэг ажлыг хурдан гүйцэтгэхэд тусална.</li>
+  <li><b>Кэш (cache):</b> процессор доторх маш хурдан жижиг санах ой. Том байх нь тоглоом, тооцоололд давуу.</li>
+  <li><b>TDP (Вт):</b> дулаан ялгаруулах чадал. Хөргөгч сонгоход чухал.</li>
+  <li><b>Сокет:</b> эх хавтантай холбогдох үүр (Intel LGA1700, AMD AM5 гэх мэт). Таарахгүй бол суухгүй.</li>
+ </ul>
+ <div class="box tip"><b>Анхаарах</b>Цөмийн тоо ганцаараа гүйцэтгэлийг тодорхойлдоггүй. Архитектур, давтамж, кэшийг хамт харна. Төгсгөлд нь «F» үсэгтэй Intel процессорт суурилуулсан график байхгүй тул дэлгэцний карт заавал хэрэгтэй.</div>
+</section>
+
+<section id="ram">
+ <h2>Санах ой (RAM)</h2>
+ <p>RAM нь компьютер асаалттай үед ашиглаж буй программ, өгөгдлийг түр хадгалдаг хурдан санах ой. Тэжээл тасрахад доторх мэдээлэл устна.</p>
+ <div class="scroll"><table class="cmp">
+  <tr><th>Үзүүлэлт</th><th>Утга</th><th>Тайлбар</th></tr>
+  <tr><td>Багтаамж</td><td>8, 16, 32, 64 ГБ</td><td>Хэдий олон программ зэрэг ажиллуулахыг тодорхойлно</td></tr>
+  <tr><td>Төрөл</td><td>DDR4, DDR5</td><td>Эх хавтан дэмжсэн төрөлтэй заавал таарна</td></tr>
+  <tr><td>Давтамж</td><td>3200–6400 МГц</td><td>Өндөр байх тусам өгөгдөл дамжуулах хурд өснө</td></tr>
+  <tr><td>Хоцролт (CL)</td><td>CL16, CL30…</td><td>Бага байх нь хурдан</td></tr>
+ </table></div>
+ <div class="box tip"><b>Хоёр сувгийн горим</b>Нэг 16 ГБ-ын оронд 2×8 ГБ хавтан суулгавал dual channel горимд ажиллаж, гүйцэтгэл сайжирдаг.</div>
+</section>
+
+<section id="storage">
+ <h2>Хадгалах төхөөрөмж</h2>
+ <p>Үйлдлийн систем, программ, файлыг байнга хадгалдаг. Тэжээл тасарсан ч мэдээлэл үлдэнэ.</p>
+ <div class="scroll"><table class="cmp">
+  <tr><th>Төрөл</th><th>Ойролцоо хурд</th><th>Давуу тал</th><th>Сул тал</th></tr>
+  <tr><td>HDD</td><td>100–200 МБ/с</td><td>Хямд, том багтаамж</td><td>Удаан, механик хэсэгтэй, чимээтэй</td></tr>
+  <tr><td>SATA SSD</td><td>~550 МБ/с</td><td>HDD-ээс хавьгүй хурдан, чимээгүй</td><td>NVMe-ээс удаан</td></tr>
+  <tr><td>NVMe SSD (PCIe 3.0)</td><td>~3 500 МБ/с</td><td>Маш хурдан, M.2 хэлбэртэй</td><td>SATA-аас үнэтэй</td></tr>
+  <tr><td>NVMe SSD (PCIe 4.0/5.0)</td><td>7 000–12 000+ МБ/с</td><td>Хамгийн хурдан</td><td>Халдаг, радиатор хэрэгтэй байж болно</td></tr>
+ </table></div>
+ <p>Хурдны утгууд нь загвараас хамаарч өөр байж болно. Үйлдлийн систем болон түгээмэл программыг SSD дээр, том архивыг HDD дээр хадгалах нь зардал хэмнэсэн сонголт.</p>
+</section>
+
+<section id="gpu">
+ <h2>Дэлгэцний карт (GPU)</h2>
+ <p>Зураг, видео, 3D дүрсийг боловсруулж монитор руу гаргадаг. Маш олон энгийн тооцоог зэрэгцүүлэн хийдэг тул тоглоом, видео засвар, 3D загварчлал, хиймэл оюун ухааны тооцоололд чухал.</p>
+ <ul class="l">
+  <li><b>Суурилуулсан (integrated):</b> процессор дотор байдаг. Албан ажил, вэб, видео үзэхэд хангалттай.</li>
+  <li><b>Тусдаа (discrete):</b> өөрийн санах ой (VRAM) болон хөргөлттэй тусдаа карт. NVIDIA, AMD үйлдвэрлэнэ.</li>
+ </ul>
+ <h3>Харах зүйлс</h3>
+ <ul class="l">
+  <li><b>VRAM:</b> картын санах ой. Өндөр нягтралтай тоглоомд их хэрэгтэй.</li>
+  <li><b>Хүч (TGP) ба тэжээлийн холбогч:</b> цахилгаан тэжээлийн хүчин чадал, холбогчтой таарах ёстой.</li>
+  <li><b>Хэмжээ:</b> кейсэнд багтах эсэхийг урт, зузаанаар нь шалгана.</li>
+  <li><b>Порт:</b> HDMI, DisplayPort. Монитортой таарахыг нягтална.</li>
+ </ul>
+</section>
+
+<section id="mb">
+ <h2>Эх хавтан (Motherboard)</h2>
+ <p>Бусад бүх эд ангийг холбож, хоорондын харилцааг зохицуулдаг гол хавтан. Процессор, RAM, SSD, дэлгэцний карт бүгд үүн дээр залгагдана.</p>
+ <div class="scroll"><table class="cmp">
+  <tr><th>Хэмжээ (form factor)</th><th>Онцлог</th></tr>
+  <tr><td>ATX</td><td>Стандарт хэмжээ, өргөтгөлийн үүр олон</td></tr>
+  <tr><td>Micro-ATX (mATX)</td><td>Жижиг, хямд, ихэнх хэрэглээнд хангалттай</td></tr>
+  <tr><td>Mini-ITX</td><td>Хамгийн жижиг, жижиг кейсэнд тохиромжтой</td></tr>
+ </table></div>
+ <div class="box"><b>Үндсэн тохирол</b>Эх хавтангийн <b>сокет</b> нь процессортой, <b>RAM-ийн төрөл</b> нь санах ойтой, <b>хэмжээ</b> нь кейстэй таарах ёстой. Мөн чипсет нь боломжит функцийг (USB порт, M.2 үүрний тоо, хурд) тодорхойлно.</div>
+</section>
+
+<section id="psu">
+ <h2>Цахилгаан тэжээл (PSU)</h2>
+ <p>Ханын гүйдлийг компьютерт тохирсон тогт болгон хувиргаж бүх эд ангид түгээнэ. Муу тэжээл нь бусад үнэтэй эд ангийг гэмтээж болдог тул хэмнэж болохгүй хэсэг.</p>
+ <ul class="l">
+  <li><b>Хүчин чадал:</b> процессор болон дэлгэцний картын нийт хэрэглээнд 30–40% нөөц нэмж сонгоно.</li>
+  <li><b>80 PLUS шат:</b> Bronze, Silver, Gold, Platinum, Titanium. Шат өндөр байх тусам үр ашигтай, дулаан бага ялгаруулна.</li>
+  <li><b>Модуль төрөл:</b> бүрэн модуль (кабелийг сонгож залгана), хагас модуль, модульгүй.</li>
+ </ul>
+</section>
+
+<section id="cool">
+ <h2>Хөргөлт ба кейс</h2>
+ <p>Процессор, дэлгэцний карт ажиллах үедээ ихээхэн дулаарна. Хэт халвал гүйцэтгэлээ бууруулдаг (thermal throttling).</p>
+ <ul class="l">
+  <li><b>Агаарын хөргөгч:</b> радиатор ба сэнс. Энгийн, найдвартай, хямд.</li>
+  <li><b>Шингэн хөргөлт (AIO):</b> радиатор, насос бүхий битүү систем. Хүчтэй процессорт тохиромжтой.</li>
+  <li><b>Термо оо (thermal paste):</b> процессор ба хөргөгчийн хооронд дулаан дамжуулалтыг сайжруулна.</li>
+  <li><b>Кейс:</b> агаарын урсгал сайтай, сэнсний байршил зөв байх нь хөргөлтөд чухал.</li>
+ </ul>
+</section>
+
+<section id="io">
+ <h2>Оролт ба гаралтын төхөөрөмж</h2>
+ <div class="parts">
+  <div class="part"><b>Оролт</b><span>Гар, хулгана, микрофон, вэб камер, сканнер</span></div>
+  <div class="part"><b>Гаралт</b><span>Монитор, чихэвч, чанга яригч, принтер</span></div>
+  <div class="part"><b>Холбох порт</b><span>USB-A, USB-C, HDMI, DisplayPort, Ethernet, аудио</span></div>
+  <div class="part"><b>Сүлжээ</b><span>Wi-Fi, Bluetooth, LAN карт, роутер</span></div>
+ </div>
+ <h3>Мониторын үзүүлэлт</h3>
+ <ul class="l">
+  <li><b>Нягтрал:</b> Full HD (1920×1080), 2K (2560×1440), 4K (3840×2160).</li>
+  <li><b>Шинэчлэлтийн давтамж (Hz):</b> 60 Hz энгийн, 144 Hz ба түүнээс дээш тоглоомд зөөлөн.</li>
+  <li><b>Матриц:</b> IPS (өнгө сайн), VA (контраст сайн), TN (хурдан, хямд).</li>
+ </ul>
+</section>
+
+<section id="choose">
+ <h2>Зориулалтаар хэрхэн сонгох вэ</h2>
+ <p>Зориулалтаа сонгоод ойролцоо зөвлөмжийг харна уу. Эдгээр нь ерөнхий чиглэл бөгөөд тодорхой программ, тоглоомын шаардлагыг заавал шалгаарай.</p>
+ <div class="pick" role="group" aria-label="Зориулалт" id="pick"></div>
+ <div id="spec" aria-live="polite"></div>
+ <div class="box tip"><b>Зөвлөгөө</b>Төсвөө эхлээд хамгийн чухал эд ангид (тоглоомд дэлгэцний карт, засварт процессор ба RAM) түлхүү тавь. Дараа нь шинэчлэхэд амар байхаар эх хавтан, цахилгаан тэжээлээ нөөцтэй сонго.</div>
+</section>
+
+<section id="faq">
+ <h2>Түгээмэл асуулт</h2>
+ <details><summary>Компьютер удаан ажиллаж байвал юуг эхэлж шалгах вэ?</summary><p>Эхлээд HDD-тэй бол SSD болгох, RAM-ын багтаамж хүрэлцэж байгаа эсэх, эхлэхэд ачаалагдах программын тоо, халалт, вирусыг шалгана.</p></details>
+ <details><summary>RAM нэмбэл компьютер хурдан болох уу?</summary><p>Санах ой дутагдаж байсан тохиолдолд мэдэгдэхүйц сайжирна. Харин хангалттай байгаа бол нэмсэн ч өөрчлөлт бага байна.</p></details>
+ <details><summary>Хуучин эх хавтанд шинэ процессор суух уу?</summary><p>Сокет, чипсет, BIOS-ийн хувилбар таарсан тохиолдолд суух боломжтой. Үйлдвэрлэгчийн дэмжигдсэн процессорын жагсаалтыг заавал шалгана.</p></details>
+ <details><summary>Дэлгэцний карт заавал хэрэгтэй юу?</summary><p>Албан ажил, вэб, видео үзэхэд суурилуулсан график хангалттай. Тоглоом, 3D, видео засварт тусдаа карт хэрэгтэй.</p></details>
+ <details><summary>Компьютер дотроо яаж цэвэрлэх вэ?</summary><p>Тэжээлийг салгаж, сэнс, радиаторыг шахсан агаараар үлээж тоосыг арилгана. Сэнсийг үлээх үедээ бүү эргүүл, статик цахилгаанаас сэрэмжил.</p></details>
+</section>
+
+<section id="gloss">
+ <h2>Нэр томьёоны толь</h2>
+ <input id="gq" type="search" placeholder="Нэр томьёо хайх…" aria-label="Нэр томьёо хайх">
+ <div id="gl"></div>
+</section>
+</article>
+</div>
+
+<footer>Энэхүү гарын авлага нь танин мэдэхүйн зорилготой. Тодорхой эд анги худалдан авахын өмнө үйлдвэрлэгчийн албан ёсны үзүүлэлтийг шалгаарай.</footer>
+
+<script>
+const PRESETS={
+"Албан ажил, сургууль":[["Процессор","4–6 цөм (суурилуулсан график бүхий)"],["Санах ой","8–16 ГБ"],["Хадгалах","256–512 ГБ SSD"],["Дэлгэцний карт","Суурилуулсан график хангалттай"],["Цахилгаан тэжээл","350–450 Вт"],["Тайлбар","Бичиг баримт, вэб, видео уулзалтад тохиромжтой"]],
+"Тоглоом":[["Процессор","6–8 цөм, өндөр давтамжтай"],["Санах ой","16–32 ГБ DDR4/DDR5"],["Хадгалах","1 ТБ NVMe SSD"],["Дэлгэцний карт","8–12 ГБ ба түүнээс дээш VRAM"],["Цахилгаан тэжээл","550–750 Вт, 80 PLUS Bronze/Gold"],["Тайлбар","Монитороо нягтрал, Hz-ээр нь тааруул"]],
+"Видео засвар, 3D":[["Процессор","8–16 цөм"],["Санах ой","32–64 ГБ"],["Хадгалах","1–2 ТБ NVMe SSD + нөөцлөх HDD"],["Дэлгэцний карт","12 ГБ ба түүнээс дээш VRAM"],["Цахилгаан тэжээл","750 Вт ба түүнээс дээш, Gold"],["Тайлбар","Өнгө сайтай IPS монитор бас чухал"]],
+"Программчлал":[["Процессор","6–12 цөм"],["Санах ой","16–32 ГБ"],["Хадгалах","512 ГБ–1 ТБ NVMe SSD"],["Дэлгэцний карт","Суурилуулсан эсвэл дунд зэрэг"],["Цахилгаан тэжээл","450–650 Вт"],["Тайлбар","Виртуал машин, Docker ашиглавал RAM нэм"]]
+};
+const G=[["Бенчмарк (benchmark)","Эд ангийн гүйцэтгэлийг хэмжих туршилт, тест."],["BIOS/UEFI","Эх хавтан дахь үндсэн программ. Компьютер асахад хардвэрийг эхлүүлнэ."],["Bottleneck","Нэг эд анги бусдыг нь хязгаарлаж, нийт гүйцэтгэлийг буулгах байдал."],["Cache","Процессор доторх хурдан санах ой."],["Chipset","Эх хавтан дээрх, эд ангиудын хоорондын харилцааг зохицуулдаг чип."],["Core","Процессорын тооцоолох цөм."],["DDR","Double Data Rate. Санах ойн үеийн нэр (DDR4, DDR5)."],["FPS","Секундэд гарах кадрын тоо. Тоглоомын жигд байдлыг үзүүлнэ."],["GPU","Графикийн процессор."],["M.2","SSD болон Wi-Fi картад ашиглагддаг жижиг холбогчийн стандарт."],["NVMe","PCIe шугамаар холбогддог SSD-ийн хурдан протокол."],["Overclock","Эд ангийг үйлдвэрийн давтамжаас дээш ажиллуулах."],["PCIe","Дэлгэцний карт, SSD зэргийг холбох өндөр хурдны шугам."],["RAID","Хэд хэдэн дискийг нэгтгэж хурд эсвэл нөөцлөлтийг нэмэх арга."],["Socket","Процессор суух эх хавтангийн үүр."],["TDP","Эд ангийн ялгаруулдаг дулааны ойролцоо хэмжээ (Вт)."],["Throttling","Хэт халсны улмаас гүйцэтгэлээ автоматаар бууруулах."],["VRAM","Дэлгэцний картын тусдаа санах ой."]];
+const pick=document.getElementById("pick"),spec=document.getElementById("spec");
+function show(k){
+ [...pick.children].forEach(b=>b.setAttribute("aria-pressed",b.textContent===k));
+ spec.innerHTML=PRESETS[k].map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join("");
+}
+Object.keys(PRESETS).forEach(k=>{const b=document.createElement("button");b.textContent=k;b.onclick=()=>show(k);pick.appendChild(b)});
+show("Албан ажил, сургууль");
+const gl=document.getElementById("gl"),gq=document.getElementById("gq");
+function drawG(){const q=gq.value.trim().toLowerCase();const l=G.filter(g=>(g[0]+g[1]).toLowerCase().includes(q));
+ gl.innerHTML=l.length?l.map(g=>`<div class="g"><b>${g[0]}</b> – ${g[1]}</div>`).join(""):"<p>Олдсонгүй.</p>"}
+gq.oninput=drawG;drawG();
+</script>
+</body>
+</html>
